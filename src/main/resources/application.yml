@@ -1,0 +1,30 @@
+# dev-profile
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cinemagram?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 5032
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql : true
+    open-in-view: true
+
+logging:
+  level:
+    ROOT: INFO
+    example.springsecurity: DEBUG
+  path: ./
+#    org:
+#      hibernate:
+#        type:
+#          descriptor:
+#            sql: trace
+
