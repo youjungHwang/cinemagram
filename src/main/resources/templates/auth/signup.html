@@ -11,13 +11,13 @@
                 <article class="login__form__container">
                   
                    <!--회원가입 폼-->
-                    <div class="login__form">
+                    <div class="login__form" style="border-radius: 30px">
                         <!--로고-->
                         <h1><img th:src="@{/images/logo.png}" alt="Cinemagram"></h1>
                          <!--로고end-->
                          
-                         <!--회원가입 인풋-->
-                        <form class="login__input" >
+                        <!--회원가입 인풋-->
+                        <form class="login__input" action="/auth/signup" method="post">
                             <input type="text" name="username" placeholder="유저네임" required="required" />
                             <input type="password" name="password" placeholder="패스워드" required="required" />
                             <input type="email" name="email" placeholder="이메일" required="required" />
@@ -29,7 +29,7 @@
                     <!--회원가입 폼end-->
                     
                     <!--계정이 있으신가요?-->
-                    <div class="login__register">
+                    <div class="login__register" style="border-radius: 10px">
                         <span>계정이 있으신가요?</span>
                         <a th:href="@{/auth/signin}">로그인</a>
                     </div>
