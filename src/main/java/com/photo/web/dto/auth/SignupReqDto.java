@@ -3,15 +3,23 @@ package com.photo.web.dto.auth;
 import com.photo.domain.user.User;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 @Data
 public class SignupReqDto {
+
+    @Size(min = 2, max = 20)
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
+    @NotBlank
     private String email;
+    @NotBlank
     private String name;
 
-    // 회원가입용 빌더패턴 (User모델에 @Builder)
-    // 4개의 데이터를 기반으로 User 객체 만들고 .build()해서 User 리턴함
     public User toEntity() {
         return User.builder()
                 .username(username)
