@@ -20,10 +20,10 @@
         <!--사진업로드 Form-->
         <form class="upload-form" >
             <input  type="file" name="file" onchange="imageChoose(this)"/>
-            <div class="upload-img">
+            <div class="upload-img" style="height: 500px">
                 <img th:src="@{/images/defaultStory.png}" alt="" id="imageUploadPreview" />
             </div>
-
+            <br>
             <!--사진설명 + 업로드버튼-->
             <div class="upload-form-detail">
                 <input type="text" placeholder="사진설명" name="caption">

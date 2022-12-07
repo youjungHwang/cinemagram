@@ -37,7 +37,6 @@ public class AuthController {
         return "/auth/signup";
     }
 
-    /* [ 회원가입 ] */
     @PostMapping("/auth/signup")
     public String signup(@Valid SignupReqDto signupReqDto, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
