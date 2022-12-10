@@ -1,6 +1,7 @@
 package com.photo.config.auth;
 
 import com.photo.domain.user.User;
+import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Getter
+@Data
 public class CustomUserDetails implements UserDetails {
 
     private User user;

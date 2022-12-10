@@ -45,7 +45,7 @@ public class AuthController {
             for(FieldError error : bindingResult.getFieldErrors()) {
                 errors.put(error.getField(),error.getDefaultMessage());
             }
-            throw new CustomValidationException("회원가입 유효성 검사에 실패하였습니다.", errors);
+            throw new CustomValidationException("유효성 검사에 실패하였습니다.", errors);
         }else {
             User user = signupReqDto.toEntity();
             authService.signup(user);

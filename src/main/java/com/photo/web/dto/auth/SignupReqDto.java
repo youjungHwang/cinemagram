@@ -1,9 +1,8 @@
 package com.photo.web.dto.auth;
 
 import com.photo.domain.user.User;
-import lombok.Data;
+import lombok.*;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -28,5 +27,6 @@ public class SignupReqDto {
                 .name(name)
                 .build();
     }
+
 
 }

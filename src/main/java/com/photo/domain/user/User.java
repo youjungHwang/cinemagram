@@ -1,9 +1,6 @@
 package com.photo.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -41,10 +38,5 @@ public class User {
     public void createDate() {
         this.createDate = LocalDateTime.now();
     }
-
-
-
-
-
 
 }
