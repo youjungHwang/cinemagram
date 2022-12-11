@@ -1,5 +1,6 @@
 package com.photo.handler;
 
+import com.photo.handler.exception.CustomApiException;
 import com.photo.handler.exception.CustomValidationApiException;
 import com.photo.handler.exception.CustomValidationException;
 import com.photo.util.Popup;
@@ -23,5 +24,10 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<?> validationApiException(CustomValidationApiException e){
         return new ResponseEntity<>(new ResDto<>(-1,e.getMessage(),e.getErrors()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<?> apiException(CustomApiException e){
+        return new ResponseEntity<>(new ResDto<>(-1,e.getMessage(),null), HttpStatus.BAD_REQUEST);
     }
 }
