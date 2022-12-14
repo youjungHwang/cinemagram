@@ -1,6 +1,7 @@
 package com.photo.handler;
 
 import com.photo.handler.exception.CustomApiException;
+import com.photo.handler.exception.CustomException;
 import com.photo.handler.exception.CustomValidationApiException;
 import com.photo.handler.exception.CustomValidationException;
 import com.photo.util.Popup;
@@ -18,7 +19,16 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(CustomValidationException.class)
     public String validationException(CustomValidationException e){
-        return Popup.historyBack(e.getErrors().toString());
+        if(e.getErrors() == null){
+            return Popup.historyBack(e.getMessage());
+        }else{
+            return Popup.historyBack(e.getErrors().toString());
+        }
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public String exception(CustomException e){
+        return Popup.historyBack(e.getMessage());
     }
 
     @ExceptionHandler(CustomValidationApiException.class)

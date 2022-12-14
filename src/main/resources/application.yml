@@ -16,6 +16,11 @@ spring:
       hibernate:
         format_sql : true
     open-in-view: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 3MB
+      max-request-size: 3MB
 
 logging:
   level:
@@ -27,4 +32,9 @@ logging:
 #        type:
 #          descriptor:
 #            sql: trace
+
+
+
+file:
+  path: C:/Users/dbwjd/Desktop/Projects/ImageUpload/
 

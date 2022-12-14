@@ -2,6 +2,9 @@ package com.photo.web;
 
 import com.photo.config.auth.CustomUserDetails;
 import com.photo.domain.user.User;
+import com.photo.service.UserService;
+import com.photo.web.dto.user.UserProfileDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,11 +13,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@RequiredArgsConstructor
 @Controller
 public class UserController {
 
-    @GetMapping("/user/{id}")
-    public String profile(@PathVariable int id) {
+    private final UserService userService;
+
+    @GetMapping("/user/{pageUserId}")
+    public String profile(@PathVariable int pageUserId, Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        UserProfileDto userProfileDto = userService.profile(pageUserId, customUserDetails.getUser().getId());
+        model.addAttribute("dto", userProfileDto);
+        model.addAttribute("sessionId", customUserDetails.getUser().getId());
+
         return "user/profile";
     }
 
