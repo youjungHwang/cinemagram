@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{/layout/header :: header}"></div>
+
+<main class="main">
+	<section class="container" style="width: 35%">
+		<!--전체 리스트 시작-->
+		<article class="story-list" id="storyList">
+		</article>
+	</section>
+</main>
+<script th:src="@{/js/feed.js}"></script>
+
+</html>

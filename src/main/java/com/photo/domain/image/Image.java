@@ -18,6 +18,7 @@ public class Image extends BaseTimeEntity {
     private String caption;
     private String imageUrl;
 
+    @JsonIgnoreProperties({"images"})
     @JoinColumn(name = "userId")
     @ManyToOne
     private User user;
