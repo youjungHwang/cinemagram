@@ -3,7 +3,6 @@ package com.photo.domain.follow;
 import com.photo.domain.BaseTimeEntity;
 import com.photo.domain.user.User;
 import lombok.*;
-
 import javax.persistence.*;
 
 
@@ -24,11 +23,11 @@ public class Follow extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fromUserId")
     private User fromUser;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "toUserId")
     private User toUser;
 

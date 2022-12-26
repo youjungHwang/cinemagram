@@ -30,7 +30,8 @@
 				<button th:if="${dto.pageUserState}" class="cta" onclick="location.href='/image/upload'" >이미지 추가</button>
 
 				<div th:unless="${dto.pageUserState}">
-					<button class="cta" onclick="toggleSubscribe(this)">팔로우</button>
+					<button th:if="${dto.followState}" class="cta blue" th:onclick="toggleSubscribe([[ ${dto.user.id} ]], this)">언팔로우</button>
+					<button th:unless="${dto.followState}" class="cta" th:onclick="toggleSubscribe([[ ${dto.user.id} ]], this)">팔로우</button>
 				</div>
 
 				<button class="modi" onclick="popup('.modal-info')">
@@ -42,7 +43,7 @@
 				<ul>
 					<li><a href=""> 게시물<span th:text=${dto.imageCount}></span>
 					</a></li>
-					<li><a href="javascript:subscribeInfoModalOpen();"> 팔로잉<span>3</span>
+					<li><a th:onclick="javascript:subscribeInfoModalOpen([[ ${dto.user.id} ]])"> 팔로잉<span th:text="${dto.followCount}"></span>
 					</a></li>
 				</ul>
 			</div>
@@ -115,34 +116,10 @@
 
 		<div class="subscribe-list" id="subscribeModalList">
 
-			<div class="subscribe__item" id="subscribeModalItem-1">
-				<div class="subscribe__img">
-					<img th:src="@{#}" onerror="this.src='/images/person.png'"/>
-				</div>
-				<div class="subscribe__text">
-					<h2>blueberry</h2>
-				</div>
-				<div class="subscribe__btn">
-					<button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>
-				</div>
-			</div>
-
-
-			<div class="subscribe__item" id="subscribeModalItem-2">
-				<div class="subscribe__img">
-					<img th:src="@{#}" onerror="this.src='/images/person.jpeg'"/>
-				</div>
-				<div class="subscribe__text">
-					<h2>cherry</h2>
-				</div>
-				<div class="subscribe__btn">
-					<button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>
-				</div>
-			</div>
 		</div>
 	</div>
-
 </div>
+
 <script th:src="@{/js/profile.js}"></script>
 
 <div th:replace="~{layout/footer :: footer}"></div>

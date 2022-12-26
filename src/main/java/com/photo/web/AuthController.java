@@ -6,14 +6,11 @@ import com.photo.service.AuthService;
 import com.photo.web.dto.auth.SignupReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -29,8 +26,11 @@ public class AuthController {
 
     @GetMapping("/auth/signin")
     public String signinForm() {
+
         return "/auth/signin";
     }
+
+    // @PostMapping 로그인 메서드는 스프링 시큐리티가 대신 처리하므로 직접 구현할 필요가 없다.
 
     @GetMapping("/auth/signup")
     public String signupForm() {

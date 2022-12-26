@@ -1,10 +1,9 @@
 package com.photo.web.dto.user;
 
 import com.photo.domain.user.User;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-
 
 @Data
 public class UserUpdateDto {

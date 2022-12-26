@@ -1,23 +1,23 @@
 package com.photo.service;
 
+import com.photo.domain.follow.FollowRepository;
 import com.photo.domain.user.User;
 import com.photo.domain.user.UserRepository;
 import com.photo.handler.exception.CustomException;
 import com.photo.handler.exception.CustomValidationApiException;
 import com.photo.web.dto.user.UserProfileDto;
-import com.photo.web.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -32,20 +32,24 @@ public class UserService {
         dto.setPageUserState(pageUserId == sessionId);
         dto.setImageCount(userEntity.getImages().size());
 
+       int followState = followRepository.cFollowState(sessionId, pageUserId);
+       int followCount = followRepository.cFollowCount(pageUserId);
+
+       dto.setFollowState(followState == 1);
+       dto.setFollowCount(followCount);
 
         return dto;
     }
 
 
     @Transactional
-    public User userUpdate(int id, User userUpdateDto){
+    public User userUpdate(int id, User userUpdateDto){ // userUpdateDto.toEntity()
         User userEntity = userRepository.findById(id).orElseThrow(()-> new CustomValidationApiException("해당 유저를 찾을 수 없습니다."));
-
-        userEntity.setName(userUpdateDto.getName());
 
         String rawPassword = userUpdateDto.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 
+        userEntity.setName(userUpdateDto.getName());
         userEntity.setPassword(encPassword);
         userEntity.setWebsite(userUpdateDto.getWebsite());
         userEntity.setBio(userUpdateDto.getBio());

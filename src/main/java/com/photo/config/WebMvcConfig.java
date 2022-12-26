@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 @Component
-public class WebMvcConfig implements WebMvcConfigurer { // web 설정 파일
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${file.path}")
     private String imageUploadRoute;

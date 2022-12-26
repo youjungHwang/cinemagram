@@ -1,13 +1,13 @@
 /**
-	2. 스토리 페이지
-	(1) 스토리 로드하기
-	(2) 스토리 스크롤 페이징하기
-	(3) 좋아요, 안좋아요
+	2. 피드 페이지
+	(1) 피드 로드
+	(2) 피드 스크롤 페이징
+	(3) 좋아요, 좋아요 취소
 	(4) 댓글쓰기
 	(5) 댓글삭제
  */
 
-// (1) 스토리 로드하기
+// (1) 피드 로드
 let page = 0;
 
 function storyLoad() {
@@ -25,7 +25,7 @@ function storyLoad() {
             });
         },
         error: function(error) {
-            console.log("스토리 렌더링 오류", error);
+            console.log("피드 렌더링 오류", error);
         }
     });
 }
@@ -49,7 +49,7 @@ function getStoryItem(image) {
                		<div class="sl__item__contents__icon">
 
                			<button>
-               				<i class="fas fa-heart active" id="storyLikeIcon-1" onclick="toggleLike()"></i>
+               				<i class="fas fa-heart active" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>
                			</button>
                		</div>
 
@@ -85,12 +85,12 @@ function getStoryItem(image) {
 
 }
 
-// (2) 스토리 스크롤 페이징하기
+// (2) 피드 스크롤 페이징
 $(window).scroll(() => {
 /*
     console.log("윈도우 현재 scroll 위치", $(window).scrollTop());
     console.log("전체 문서의 높이(고정값)", $(document).height());
-    console.log("윈도우 높이(고정값, 보이는 컴퓨터 화면)", $(window).height());
+    console.log("윈도우 높이(고정값)", $(window).height());
     결과 : 전체 문서의 높이 - 윈도우 높이 = 윈도우 현재 scroll 위치
 */
 
@@ -104,9 +104,9 @@ $(window).scroll(() => {
 });
 
 
-// (3) 좋아요, 안좋아요
-function toggleLike() {
-	let likeIcon = $("#storyLikeIcon-1");
+// (3) 좋아요, 좋아요 취소
+function toggleLike(imageId) {
+	let likeIcon = $(`#storyLikeIcon-${imageId}`);
 	if (likeIcon.hasClass("far")) {
 		likeIcon.addClass("fas");
 		likeIcon.addClass("active");

@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.photo.domain.BaseTimeEntity;
 import com.photo.domain.image.Image;
 import lombok.*;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class User extends BaseTimeEntity {
     @Id
@@ -36,10 +36,8 @@ public class User extends BaseTimeEntity {
     private String profileImageUrl;
     private String role;
 
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"user"}) // 응답시 무한 참조 막기위함, image 엔티티에 있는 user는 무시하고 JSON 파싱한다.
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
     private List<Image> images;
-
 
 }

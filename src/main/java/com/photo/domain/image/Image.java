@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.photo.domain.BaseTimeEntity;
 import com.photo.domain.user.User;
 import lombok.*;
-
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Image extends BaseTimeEntity {
     @Id
@@ -20,7 +20,7 @@ public class Image extends BaseTimeEntity {
 
     @JsonIgnoreProperties({"images"})
     @JoinColumn(name = "userId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder

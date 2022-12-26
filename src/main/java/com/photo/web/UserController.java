@@ -1,13 +1,10 @@
 package com.photo.web;
 
 import com.photo.config.auth.CustomUserDetails;
-import com.photo.domain.user.User;
 import com.photo.service.UserService;
 import com.photo.web.dto.user.UserProfileDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
