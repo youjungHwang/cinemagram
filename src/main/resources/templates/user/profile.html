@@ -12,6 +12,7 @@
 		<div class="profile-left">
 			<div class="profile-img-wrap story-border"
 				 onclick="popup('.modal-image')">
+
 				<form id="userProfileImageForm">
 					<input type="file" name="profileImageFile" style="display: none;"
 						   id="userProfileImageInput" />
@@ -73,7 +74,7 @@
 							<img class="subscribe-image" th:src="@{/upload/} + ${image.imageUrl}"/>
 						</a>
 						<div class="comment">
-							<a href="#" class=""> <i class="fas fa-heart"></i><span>0</span></a>
+							<a href="#" class=""> <i class="fas fa-heart"></i><span th:text="${image.likesCount}"></span></a>
 						</div>
 					</div>
 				</div>
@@ -98,7 +99,7 @@
 <div class="modal-image" onclick="modalImage()">
 	<div class="modal">
 		<p>프로필 사진 바꾸기</p>
-		<button th:onclick="profileImageUpload()">사진 업로드</button>
+		<button th:onclick="'profileImageUpload(' + ${dto.user.id} + ', ' + ${sessionId} + ')'">사진 업로드</button>
 		<button onclick="closePopup('.modal-image')">취소</button>
 	</div>
 </div>

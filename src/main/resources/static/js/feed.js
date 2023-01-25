@@ -48,12 +48,19 @@ function getStoryItem(image) {
                	<div class="sl__item__contents">
                		<div class="sl__item__contents__icon">
 
-               			<button>
-               				<i class="fas fa-heart active" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>
-               			</button>
+               			<button>`;
+
+                         if(image.likesState){
+                            item += `<i class="fas fa-heart active" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`;
+                         }else {
+                            item += `<i class="far fa-heart" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`;
+                         }
+
+                    item += `
+                        </button>
                		</div>
 
-               		<span class="like"><b id="storyLikeCount-1">3 </b>likes</span>
+               		<span class="like"><b id="storyLikeCount-${image.id}">${image.likesCount} </b>likes</span>
 
                		<div class="sl__item__contents__content">
                			<p>${image.caption}</p>
@@ -104,18 +111,52 @@ $(window).scroll(() => {
 });
 
 
-// (3) 좋아요, 좋아요 취소
+// (3) 좋아요(fas), 좋아요 취소(far)
 function toggleLike(imageId) {
 	let likeIcon = $(`#storyLikeIcon-${imageId}`);
-	if (likeIcon.hasClass("far")) {
-		likeIcon.addClass("fas");
-		likeIcon.addClass("active");
-		likeIcon.removeClass("far");
-	} else {
-		likeIcon.removeClass("fas");
-		likeIcon.removeClass("active");
-		likeIcon.addClass("far");
-	}
+
+    if (likeIcon.hasClass("far")) { // 빈 하트 - 클릭한다는 건, 좋아요를 하겠다는 의미
+
+        $.ajax({
+            type: "post",
+            url: `/api/image/${imageId}/likes`,
+            dataType: "json",
+            success: function(res) {
+
+                let likeCountStr = $(`#storyLikeCount-${imageId}`).text();
+                let likeCount = Number(likeCountStr) + 1;
+                $(`#storyLikeCount-${imageId}`).text(likeCount);
+
+                likeIcon.addClass("fas");
+                likeIcon.addClass("active");
+                likeIcon.removeClass("far");
+            },
+            error: function(error) {
+                console.log("좋아요 API 오류", error);
+            }
+        });
+
+    } else {
+
+        $.ajax({
+            type: "delete",
+            url: `/api/image/${imageId}/likes`,
+            dataType: "json",
+            success: function(res) {
+
+                let likeCountStr = $(`#storyLikeCount-${imageId}`).text();
+                let likeCount = Number(likeCountStr) - 1;
+                $(`#storyLikeCount-${imageId}`).text(likeCount);
+
+                likeIcon.removeClass("fas"); // 빨간 하트 - 클릭한다는 건, 좋아요를 취소 하겠다는 의미
+                likeIcon.removeClass("active");
+                likeIcon.addClass("far");
+            },
+            error: function(error) {
+                console.log("좋아요 취소 API 오류", error);
+            }
+        });
+    }
 }
 
 // (4) 댓글쓰기

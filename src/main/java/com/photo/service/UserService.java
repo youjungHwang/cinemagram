@@ -3,13 +3,22 @@ package com.photo.service;
 import com.photo.domain.follow.FollowRepository;
 import com.photo.domain.user.User;
 import com.photo.domain.user.UserRepository;
+import com.photo.handler.exception.CustomApiException;
 import com.photo.handler.exception.CustomException;
 import com.photo.handler.exception.CustomValidationApiException;
 import com.photo.web.dto.user.UserProfileDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
 
 
 @RequiredArgsConstructor
@@ -20,6 +29,29 @@ public class UserService {
     private final FollowRepository followRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Value("${file.path}")
+    private String imageUploadRoute;
+
+    @Transactional
+    public User profileImageUpdate(int sessionId, MultipartFile profileImageFile) {
+        UUID uuid = UUID.randomUUID();
+        String imageFileName = uuid+"_"+profileImageFile.getOriginalFilename();
+
+        Path imageFilePath = Paths.get(imageUploadRoute+imageFileName);
+
+        try{
+            Files.write(imageFilePath, profileImageFile.getBytes());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        User userEntity = userRepository.findById(sessionId).orElseThrow(
+                () -> new CustomApiException("유저를 찾을 수 없습니다."));
+        userEntity.setProfileImageUrl(imageFileName);
+
+        return userEntity;
+
+    }
 
     @Transactional(readOnly = true)
     public UserProfileDto profile(int pageUserId, int sessionId) {
@@ -37,6 +69,10 @@ public class UserService {
 
        dto.setFollowState(followState == 1);
        dto.setFollowCount(followCount);
+
+        userEntity.getImages().forEach((image) -> {
+            image.setLikesCount(image.getLikes().size());
+        });
 
         return dto;
     }

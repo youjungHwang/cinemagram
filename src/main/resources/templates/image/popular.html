@@ -10,34 +10,14 @@
 		<!--인기게시글 갤러리(GRID배치)-->
 		<div class="popular-gallery">
 
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
+			<div th:each="image : ${images}">
+				<div class="p-img-box">
+					<a th:href="'/user/' + ${image.user.id}">
+						<img th:src="'/upload/' + ${image.imageUrl}" height="300">
+					</a>
+				</div>
 			</div>
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
-			</div>
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
-			</div>
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
-			</div>
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
-			</div>
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
-			</div>
-			<div class="p-img-box">
-				<a th:href="@{/user/profile}"> <img th:src="@{/images/defaultStory.png}" />
-				</a>
-			</div>
+
 		</div>
 	</div>
 </main>

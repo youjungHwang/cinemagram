@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -31,13 +32,19 @@ public class UserApiController {
     private final UserService userService;
     private final FollowService followService;
 
+    @PutMapping("/api/user/{sessionId}/profileImageUrl")
+    public ResponseEntity<?> profileImageUpdate(@PathVariable int sessionId, MultipartFile profileImageFile,
+                                                @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        User userEntity = userService.profileImageUpdate(sessionId, profileImageFile);
+        customUserDetails.setUser(userEntity);
+        return new ResponseEntity<>(new ResDto<>(1, "회원 프로필 사진 변경 성공", null), HttpStatus.OK);
+    }
+
 
     @GetMapping("/api/user/{pageUserId}/follow")
     public ResponseEntity<?> followList(@PathVariable int pageUserId, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         List<FollowInfoDto> followInfoDto = followService.followInfoList(customUserDetails.getUser().getId(), pageUserId);
-
         return new ResponseEntity<>(new ResDto<>(1, "구독자 정보 리스트 불러오기 성공", followInfoDto), HttpStatus.OK);
-
     }
 
     @PutMapping("/api/user/{id}")

@@ -21,14 +21,12 @@ public class UserController {
         UserProfileDto userProfileDto = userService.profile(pageUserId, customUserDetails.getUser().getId());
         model.addAttribute("dto", userProfileDto);
         model.addAttribute("sessionId", customUserDetails.getUser().getId());
-
         return "user/profile";
     }
 
     @GetMapping("/user/{id}/update")
     public String update(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
         model.addAttribute("sessionUser", customUserDetails.getUser());
-
         return "user/update";
     }
 }

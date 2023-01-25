@@ -23,5 +23,4 @@ public class FollowInfoDto {
         this.equalUserState = Integer.parseInt(String.valueOf(object[4]));
     }
 
-
 }
