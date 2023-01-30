@@ -26,6 +26,7 @@ public class UserController {
 
     @GetMapping("/user/{id}/update")
     public String update(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
+        model.addAttribute("sessionId", customUserDetails.getUser().getId());
         model.addAttribute("sessionUser", customUserDetails.getUser());
         return "user/update";
     }

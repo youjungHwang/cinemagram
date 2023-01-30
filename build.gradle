@@ -37,6 +37,9 @@ dependencies {
 	// RDBMS(Mysql)
 	implementation 'mysql:mysql-connector-java'
 
+	// Oauth2
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 	// webjars
 	implementation 'org.webjars.npm:jquery:3.6.1'
 	implementation 'org.webjars.npm:jquery-ui:1.13.2'
