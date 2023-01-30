@@ -1,5 +1,7 @@
 package com.photo.config;
 
+import com.photo.config.oauth.CustomOAuth2DetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -15,6 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder encode() {
         return new BCryptPasswordEncoder();
     }
+
+    private final CustomOAuth2DetailsService customOAuth2DetailsService;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,10 +32,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/","/user/**", "/image/**", "/follow/**","/comment/**","/api/**").authenticated()
             .anyRequest().permitAll()
             .and()
-            .formLogin()
-            .loginPage("/auth/signin") // GET
-            .loginProcessingUrl("/auth/signin") // POST
-            .defaultSuccessUrl("/");
+                .formLogin()
+                .loginPage("/auth/signin") // GET
+                .loginProcessingUrl("/auth/signin") // POST
+                .defaultSuccessUrl("/")
+            .and()
+                .logout()
+                .logoutSuccessUrl("/")
+            .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(customOAuth2DetailsService);
+
 
     }
 }
