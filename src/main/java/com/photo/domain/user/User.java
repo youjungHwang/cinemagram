@@ -36,6 +36,10 @@ public class User extends BaseTimeEntity {
     private String profileImageUrl;
     private String role;
 
+    // OAuth2.0
+    private String provider;
+    private String providerId;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     private List<Image> images;
