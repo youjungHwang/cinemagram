@@ -66,24 +66,31 @@ function getStoryItem(image) {
                			<p>${image.caption}</p>
                		</div>
 
-               		<div id="storyCommentList-1">
+               		<div id="storyCommentList-${image.id}">`;
 
-               			<div class="sl__item__contents__comment" id="storyCommentItem-1">
-               				<p>
-               					<b>blueberry :</b> 저도 꼭 볼게요!
-               				</p>
+               			image.comments.forEach((comment)=>{
+                            item += `<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
+                                        <p>
+                                            <b>${comment.user.username} :</b> ${comment.content}
+                                        </p>`;
 
-               				<button>
-               					<i class="fas fa-times"></i>
-               				</button>
+                                        if(sessionId == comment.user.id) {
+                                            item += `<button onclick="deleteComment(${comment.id})">
+                                                         <i class="fas fa-times"></i>
+                                                     </button>`;
 
-               			</div>
+                                        }
 
+                                      item += `
+                                     </div>`;
+                        });
+
+                    item += `
                		</div>
 
                		<div class="sl__item__input">
-               			<input type="text" placeholder="댓글 달기" id="storyCommentInput-1" />
-               			<button type="button" onClick="addComment()">게시</button>
+               			<input type="text" placeholder="Add a comment ..." id="storyCommentInput-${image.id}" />
+               			<button type="button" onClick="addComment(${image.id})">게시</button>
                		</div>
 
                	</div>
@@ -160,35 +167,66 @@ function toggleLike(imageId) {
 }
 
 // (4) 댓글쓰기
-function addComment() {
+function addComment(imageId) {
 
-	let commentInput = $("#storyCommentInput-1");
-	let commentList = $("#storyCommentList-1");
+	let commentList = $(`#storyCommentList-${imageId}`);
+    let commentInput = $(`#storyCommentInput-${imageId}`);
 
 	let data = {
+	    imageId: imageId,
 		content: commentInput.val()
 	}
 
 	if (data.content === "") {
-		alert("댓글을 작성해주세요!");
+		alert("댓글을 작성해주세요.");
 		return;
 	}
 
-	let content = `
-			  <div class="sl__item__contents__comment" id="storyCommentItem-2""> 
-			    <p>
-			      <b>GilDong :</b>
-			      댓글 샘플입니다.
-			    </p>
-			    <button><i class="fas fa-times"></i></button>
-			  </div>
-	`;
-	commentList.prepend(content);
-	commentInput.val("");
+	$.ajax({
+            type: "post",
+            url: `/api/comment`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                console.log("성공",res);
+
+                let comment = res;
+
+                let content = `
+                  <div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
+                    <p>
+                      <b>${comment.user.name} :</b>
+                      ${comment.content}
+                    </p>
+                    <button onclick="deleteComment(${comment.id})"><i class="fas fa-times"></i></button>
+                  </div>
+                    `;
+                commentList.prepend(content);
+            },
+            error: function(error) {
+                console.log("오류", error.responseJSON.data.content);
+                alert(error.responseJSON.data.content);
+            }
+        });
+
+	commentInput.val(""); // 인풋 빌드를 비워준다
 }
 
 // (5) 댓글 삭제
-function deleteComment() {
+function deleteComment(commentId) {
+    $.ajax({
+        type: "DELETE",
+        url: `/api/comment/${commentId}`,
+        dataType: "json",
+        success: function(res) {
+            console.log("댓글 삭제 성공", res);
+            $(`#storyCommentItem-${commentId}`).remove();
+        },
+        error: function(error) {
+            console.log("댓글 삭제 실패", error);
+        }
+    });
 
 }
 

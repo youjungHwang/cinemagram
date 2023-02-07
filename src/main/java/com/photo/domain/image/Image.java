@@ -2,6 +2,7 @@ package com.photo.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.photo.domain.BaseTimeEntity;
+import com.photo.domain.comment.Comment;
 import com.photo.domain.likes.Likes;
 import com.photo.domain.user.User;
 import lombok.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Image extends BaseTimeEntity {
@@ -21,7 +22,7 @@ public class Image extends BaseTimeEntity {
     private String caption;
     private String imageUrl;
 
-    @JsonIgnoreProperties({"images"}) //
+    @JsonIgnoreProperties({"images"})
     @JoinColumn(name = "userId")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -31,12 +32,15 @@ public class Image extends BaseTimeEntity {
     private List<Likes> likes;
 
     @Transient
-    @Setter
     private boolean likesState;
 
     @Transient
-    @Setter
     private int likesCount;
+
+    @OrderBy("id DESC")
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Comment> comments;
 
 
     @Builder
