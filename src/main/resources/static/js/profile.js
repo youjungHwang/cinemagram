@@ -52,7 +52,7 @@ function toggleSubscribe(toUserId, obj) {
 }
 
 
-// (2) 구독자 정보  모달 보기
+// (2) 구독자 정보 모달 보기
 // 로그인 id를 안 받아 오는 이유 : UserApiController의 @AuthenticationPrincipal로 확인
 function subscribeInfoModalOpen(pageUserId) {
 	$(".modal-subscribe").css("display", "flex");
