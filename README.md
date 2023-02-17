@@ -23,16 +23,12 @@
 
 ### 애플리케이션 작동
 ***
-일반 회원가입, 로그인
-![일반회원가입_로그인](https://user-images.githubusercontent.com/78125105/219614655-725d9e28-57c8-4c12-b0c5-0057e52420eb.gif)
-
-구글 로그인
-![1구글로그인](https://user-images.githubusercontent.com/78125105/219613710-e39fbffe-b1a6-4407-b5c4-5b87aaec0386.gif)
-
 프로필 변경, 이미지 추가
+
 ![프로필변경_이미지추가](https://user-images.githubusercontent.com/78125105/219615464-dd3a89d1-a4b7-4171-b610-0a582720b3d7.gif)
 
 댓글, 좋아요
+
 ![댓글_좋아요](https://user-images.githubusercontent.com/78125105/219616194-a0006734-bcb6-4e9a-8a3d-c984c91c463d.gif)
 
 
