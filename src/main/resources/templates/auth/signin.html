@@ -11,7 +11,7 @@
                <!--로그인박스-->
                 <article class="login__form__container">
                    <!--로그인 폼-->
-                   <div class="login__form" style="border-radius: 30px">
+                    <div class="login__form" style="border-radius: 30px">
                         <h1><img th:src="@{/images/logo.png}" alt="Cinemagram"></h1>
                         
                         <!--로그인 인풋-->
@@ -21,7 +21,7 @@
                                     사용자 이름 또는 비밀번호를 확인해 주세요.
                                 </div>
                             </div>
-                            <input type="text" name="username" placeholder="유저네임" required="required" />
+                            <input type="text" name="username" placeholder="유저네임" required="required" autocomplete="off" />
                             <input type="password" name="password" placeholder="비밀번호" required="required" />
                             <button type="submit">로그인</button>
                         </form>
@@ -45,7 +45,7 @@
                            </button>
                        </div>
                         <!-- Oauth 소셜로그인end -->
-                    </div>
+                     </div>
                     
                     <!--계정이 없으신가요?-->
                     <div class="login__register" style="border-radius: 10px">
