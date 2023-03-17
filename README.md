@@ -45,6 +45,23 @@
 
 ### 요구사항 별 비즈니스 로직
 ***
+### Comment 댓글
+/api/comment  
+댓글 등록
+
+/api/comment/{id}  
+댓글 삭제
+
+### Follow 팔로우
+/api/follow/{toUserId}  
+toUserId를 팔로우 한다
+
+/api/follow/{toUserId}
+
+
+
+
+
 
 
 

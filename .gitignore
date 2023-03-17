@@ -38,3 +38,6 @@ out/
 
 ### OAuth2. ###
 application-oauth.yml
+
+###
+.env

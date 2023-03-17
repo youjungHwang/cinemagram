@@ -25,12 +25,12 @@ public class FollowService {
     @Transactional(readOnly = true)
     public List<FollowInfoDto> followInfoList(int sessionId, int pageUserId) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT u.id, u.username, u.profileImageUrl, ");
-        sb.append("if((SELECT 1 FROM follow WHERE fromUserId=? AND toUserId= u.id), 1, 0) followState, ");
+        sb.append("SELECT u.id, u.username, u.profile_image_url, ");
+        sb.append("if((SELECT 1 FROM follow WHERE from_user_id=? AND to_user_id= u.id), 1, 0) followState, ");
         sb.append("if((?=u.id), 1, 0) equalUserState ");
         sb.append("FROM user u INNER JOIN follow f ");
-        sb.append("ON u.id = f.toUserId ");
-        sb.append("WHERE f.fromUserId=?");
+        sb.append("ON u.id = f.to_user_id ");
+        sb.append("WHERE f.from_user_id=?");
 
         Query query = em.createNativeQuery(sb.toString())
                 .setParameter(1, sessionId)

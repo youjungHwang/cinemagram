@@ -66,4 +66,8 @@ public class ImageService {
         imageRepository.save(image);
 
     }
+
+    public List<Image> findImagesByUserId(int userId) {
+        return imageRepository.findByUserId(userId);
+    }
 }

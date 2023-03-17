@@ -10,10 +10,11 @@ import java.util.List;
 
 public interface ImageRepository extends JpaRepository<Image, Integer> {
 
-    @Query(value = "SELECT * FROM image WHERE userId IN (SELECT toUserId FROM follow WHERE fromUserId = :sessionId)", nativeQuery = true)
+    @Query(value = "SELECT * FROM image WHERE user_id IN (SELECT to_user_id FROM follow WHERE from_user_id = :sessionId)", nativeQuery = true)
     Page<Image> cFeed (@Param(value = "sessionId") int sessionId, @Param(value = "pageable") Pageable pageable);
 
-    @Query(value = "SELECT i.* FROM image i INNER JOIN (SELECT imageId, COUNT(imageId) likesCount FROM likes GROUP BY imageId) c ON i.id = c.imageId ORDER BY likesCount DESC", nativeQuery = true)
+    @Query(value = "SELECT i.* FROM image i INNER JOIN (SELECT image_id, COUNT(image_id) likesCount FROM likes GROUP BY image_id) c ON i.id = c.image_id ORDER BY likesCount DESC", nativeQuery = true)
     List<Image> cPopularImages();
 
+    List<Image> findByUserId(int userId);
 }

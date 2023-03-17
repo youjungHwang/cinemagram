@@ -8,17 +8,17 @@ import org.springframework.data.repository.query.Param;
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
 
     @Modifying
-    @Query(value = "INSERT INTO follow(fromUserId,toUserId,createdDate) VALUES(:fromUserId,:toUserId,now())", nativeQuery = true)
+    @Query(value = "INSERT INTO follow(from_user_id,to_user_id,created_date) VALUES(:fromUserId,:toUserId,now())", nativeQuery = true)
     void cFollow(@Param(value = "fromUserId") Integer fromUserId, @Param(value = "toUserId") Integer toUserId);
 
     @Modifying
-    @Query(value = "DELETE FROM follow WHERE fromUserId =:fromUserId AND toUserId =:toUserId", nativeQuery = true)
+    @Query(value = "DELETE FROM follow WHERE from_user_id =:fromUserId AND to_user_id =:toUserId", nativeQuery = true)
     void cUnFollow(@Param(value = "fromUserId") Integer fromUserId, @Param(value = "toUserId") Integer toUserId);
 
-    @Query(value = "SELECT COUNT(*) FROM follow WHERE fromUserId = :sessionId AND toUserId = :pageUserId", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM follow WHERE from_user_id = :sessionId AND to_user_id = :pageUserId", nativeQuery = true)
     int cFollowState(@Param(value = "sessionId") int sessionId, @Param(value = "pageUserId") int pageUserId);
 
-    @Query(value = "SELECT COUNT(*) FROM follow WHERE fromUserId = :pageUserId", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM follow WHERE from_user_id = :pageUserId", nativeQuery = true)
     int cFollowCount(@Param(value = "pageUserId") int pageUserId);
 
 }

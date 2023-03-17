@@ -1,42 +1,66 @@
-# dev-profile
 spring:
+  profiles:
+    active: local #default
+    group:
+      local:
+        - common
+        - oauth # include the oauth profile in the local profile
+      prod:
+        - common
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cinemagram?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: 5032
+    url: jdbc:mysql://localhost:3307/cinemagram
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  redis:
+    host: localhost
+    port: 6379
   jpa:
-    show-sql: true
     hibernate:
-      ddl-auto: update # create update none
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update # create none validate update
+    show-sql: true
     properties:
       hibernate:
-        format_sql : true
+        format_sql: true
     open-in-view: true
   servlet:
     multipart:
       enabled: true
       max-file-size: 3MB
       max-request-size: 3MB
-  profiles:
-    include: oauth
-
-logging:
-  level:
-    ROOT: INFO
-    example.springsecurity: DEBUG
-  path: ./
-#    org:
-#      hibernate:
-#        type:
-#          descriptor:
-#            sql: trace
-
-
 
 file:
   path: C:/Users/dbwjd/Desktop/Projects/ImageUpload/
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://cinemagram-database:3307/cinemagram
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  redis:
+    host: cinemagram-redis
+    port: 6379
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
 

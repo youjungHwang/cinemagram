@@ -28,4 +28,11 @@ public class SignupReqDto {
                 .build();
     }
 
+    @Builder
+    public SignupReqDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+
 }
