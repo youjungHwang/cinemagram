@@ -31,4 +31,5 @@ public class UserController {
         model.addAttribute("socialSessionUser", customUserDetails.getAttributes());
         return "user/update";
     }
+
 }

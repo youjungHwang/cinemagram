@@ -54,10 +54,10 @@
 
 ### Follow 팔로우
 /api/follow/{toUserId}  
-toUserId를 팔로우 한다
+toUserId를 팔로우
 
 /api/follow/{toUserId}
-
+toUserId를 언팔로우
 
 
 
