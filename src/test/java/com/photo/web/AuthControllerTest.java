@@ -44,8 +44,10 @@ public class AuthControllerTest {
     @BeforeEach
     void setUp() {
         User user = User.builder()
-                .username("testuser")
-                .password("testpassword")
+                .username("test-user")
+                .password("test-password")
+                .email("test@test.com")
+                .name("test-name")
                 .id(1)
                 .build();
 

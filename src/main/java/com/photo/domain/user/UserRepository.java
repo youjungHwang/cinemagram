@@ -8,4 +8,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByProviderAndProviderId(String provider, String providerId);
 
+
+
 }

@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:mysql:5.7.34:///cinemagram
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

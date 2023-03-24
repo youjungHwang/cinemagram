@@ -4,7 +4,7 @@ spring:
     group:
       local:
         - common
-        - oauth # include the oauth profile in the local profile
+        - oauth
       prod:
         - common
 
@@ -22,7 +22,7 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/cinemagram
+    url: jdbc:mysql://localhost:3307/docker_cinemagram
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   redis:
@@ -36,11 +36,20 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: true
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    date-format: yyyy-MM-dd HH:mm:ss
   servlet:
     multipart:
       enabled: true
       max-file-size: 3MB
       max-request-size: 3MB
+logging:
+  level:
+    ROOT: INFO
+    example.springsecurity: DEBUG
+  path: ./
 
 file:
   path: C:/Users/dbwjd/Desktop/Projects/ImageUpload/
@@ -53,7 +62,7 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://cinemagram-database:3307/cinemagram
+    url: jdbc:mysql://cinemagram-database:3307/docker_cinemagram
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   redis:

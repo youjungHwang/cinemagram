@@ -43,9 +43,11 @@ public class AuthServiceTest {
     public void testSignupSuccess() {
         // given
         User user = User.builder()
-                .username("testuser")
+                .id(1)
+                .username("test-user")
                 .password("password")
                 .email("testuser@example.com")
+                .name("test-name")
                 .build();
 
         when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn("encodedPassword");
@@ -58,6 +60,7 @@ public class AuthServiceTest {
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getUsername()).isEqualTo(user.getUsername());
         assertThat(savedUser.getEmail()).isEqualTo(user.getEmail());
+        assertThat(savedUser.getName()).isEqualTo(user.getName());
         assertThat(savedUser.getRole()).isEqualTo("ROLE_USER");
         verify(userRepository, times(1)).save(any(User.class));
     }
