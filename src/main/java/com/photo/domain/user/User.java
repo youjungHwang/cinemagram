@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.photo.domain.BaseTimeEntity;
 import com.photo.domain.image.Image;
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,11 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@RedisHash("user")
 @Entity
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(unique = true, length = 100)
     private String username;
@@ -43,5 +46,14 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     private List<Image> images;
+
+
+//    public User(Long id, String username, String password, String name, String email) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.name = name;
+//        this.email = email;
+//    }
 
 }

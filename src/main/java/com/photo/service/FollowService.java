@@ -4,10 +4,12 @@ import com.photo.domain.follow.FollowRepository;
 import com.photo.handler.exception.CustomApiException;
 import com.photo.web.dto.follow.FollowInfoDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -16,14 +18,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class FollowService {
-
     private final FollowRepository followRepository;
 
     @PersistenceContext
     EntityManager em;
 
     @Transactional(readOnly = true)
-    public List<FollowInfoDto> followInfoList(int sessionId, int pageUserId) {
+    public List<FollowInfoDto> followInfoList(Long sessionId, Long pageUserId) {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT u.id, u.username, u.profile_image_url, ");
         sb.append("if((SELECT 1 FROM follow WHERE from_user_id=? AND to_user_id= u.id), 1, 0) followState, ");
@@ -45,7 +46,7 @@ public class FollowService {
     }
 
     @Transactional
-    public void follow(int fromUserId, int toUserId) {
+    public void follow(Long fromUserId, Long toUserId) {
         try{
             followRepository.cFollow(fromUserId,toUserId);
         }catch (Exception e) {
@@ -54,7 +55,7 @@ public class FollowService {
     }
 
     @Transactional
-    public void unFollow(int fromUserId, int toUserId) {
+    public void unFollow(Long fromUserId, Long toUserId) {
         followRepository.cUnFollow(fromUserId,toUserId);
     }
 }

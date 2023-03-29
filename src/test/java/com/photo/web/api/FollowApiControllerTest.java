@@ -28,7 +28,7 @@ public class FollowApiControllerTest {
     @DisplayName("유저 팔로우 성공시 성공 응답과 OK 상태 반환")
     public void testFollow() {
         // given
-        int toUserId = 123;
+        Long toUserId = 123L;
         CustomUserDetails customUserDetails = new CustomUserDetails(new User());
 
         // when
@@ -48,7 +48,7 @@ public class FollowApiControllerTest {
     @DisplayName("유저 언팔로우 성공시 성공 응답과 OK 상태 반환")
     public void testUnFollow() {
         // given
-        int toUserId = 123;
+        Long toUserId = 123L;
         CustomUserDetails customUserDetails = new CustomUserDetails(new User());
 
         // when

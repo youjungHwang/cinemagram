@@ -62,7 +62,7 @@ public class ImageApiControllerTest {
     @DisplayName("이미지 좋아요 - 성공적으로 좋아요를 누르고 상태 코드 CREATED를 반환해야 함")
     public void testImageLikes() {
         // given
-        int imageId = 123;
+        Long imageId = 123L;
         CustomUserDetails customUserDetails = new CustomUserDetails(new User());
 
 
@@ -83,7 +83,7 @@ public class ImageApiControllerTest {
     @DisplayName("이미지 좋아요 취소 - 성공적으로 좋아요를 취소하고 상태 코드 OK를 반환해야 함")
     public void testImageUnLikes() {
         // given
-        int imageId = 123;
+        Long imageId = 123L;
         CustomUserDetails customUserDetails = new CustomUserDetails(new User());
 
 

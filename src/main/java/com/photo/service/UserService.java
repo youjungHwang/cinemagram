@@ -17,9 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
-
-
 
 @RequiredArgsConstructor
 @Service
@@ -33,7 +32,7 @@ public class UserService {
     private String imageUploadRoute;
 
     @Transactional
-    public User profileImageUpdate(int sessionId, MultipartFile profileImageFile) {
+    public User profileImageUpdate(Long sessionId, MultipartFile profileImageFile) {
         UUID uuid = UUID.randomUUID();
         String imageFileName = uuid+"_"+profileImageFile.getOriginalFilename();
 
@@ -54,7 +53,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserProfileDto profile(int pageUserId, int sessionId) {
+    public UserProfileDto profile(Long pageUserId, Long sessionId) {
         UserProfileDto dto = new UserProfileDto();
 
         User userEntity = userRepository.findById(pageUserId).orElseThrow(
@@ -79,7 +78,7 @@ public class UserService {
 
 
     @Transactional
-    public User userUpdate(int id, User userUpdateDto){ // userUpdateDto.toEntity()
+    public User userUpdate(Long id, User userUpdateDto){ // userUpdateDto.toEntity()
         User userEntity = userRepository.findById(id).orElseThrow(()-> new CustomValidationApiException("해당 유저를 찾을 수 없습니다."));
 
         String rawPassword = userUpdateDto.getPassword();
@@ -92,6 +91,15 @@ public class UserService {
         userEntity.setPhone(userUpdateDto.getPhone());
         userEntity.setGender(userUpdateDto.getGender());
         return userEntity;
+    }
+
+    /*
+     * redis
+     * 유저 전체 조회용
+     * */
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
 }

@@ -31,13 +31,13 @@ public class ImageApiController {
     }
 
     @PostMapping("/api/image/{imageId}/likes")
-    public ResponseEntity<?> ImageLikes(@PathVariable int imageId, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+    public ResponseEntity<?> ImageLikes(@PathVariable Long imageId, @AuthenticationPrincipal CustomUserDetails customUserDetails){
         likesService.ImageLikes(imageId, customUserDetails.getUser().getId());
         return new ResponseEntity<>(new ResDto<>(1,"좋아요 성공",null), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/image/{imageId}/likes")
-    public ResponseEntity<?> ImageUnLikes(@PathVariable int imageId, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+    public ResponseEntity<?> ImageUnLikes(@PathVariable Long imageId, @AuthenticationPrincipal CustomUserDetails customUserDetails){
         likesService.ImageUnLikes(imageId, customUserDetails.getUser().getId());
         return new ResponseEntity<>(new ResDto<>(1,"좋아요 취소 성공",null), HttpStatus.OK);
     }

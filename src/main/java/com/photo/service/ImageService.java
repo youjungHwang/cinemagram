@@ -29,7 +29,7 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Image> Feed(int sessionId, Pageable pageable) {
+    public Page<Image> Feed(Long sessionId, Pageable pageable) {
         Page<Image> images = imageRepository.cFeed(sessionId, pageable);
 
         images.forEach((image -> {
@@ -67,7 +67,7 @@ public class ImageService {
 
     }
 
-    public List<Image> findImagesByUserId(int userId) {
+    public List<Image> findImagesByUserId(Long userId) {
         return imageRepository.findByUserId(userId);
     }
 }

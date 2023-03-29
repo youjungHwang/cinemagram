@@ -17,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/{pageUserId}")
-    public String profile(@PathVariable int pageUserId, Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    public String profile(@PathVariable Long pageUserId, Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         UserProfileDto userProfileDto = userService.profile(pageUserId, customUserDetails.getUser().getId());
         model.addAttribute("dto", userProfileDto);
         model.addAttribute("sessionId", customUserDetails.getUser().getId());
@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}/update")
-    public String update(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
+    public String update(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
         model.addAttribute("sessionId", customUserDetails.getUser().getId());
         model.addAttribute("sessionUser", customUserDetails.getUser());
         model.addAttribute("socialSessionUser", customUserDetails.getAttributes());

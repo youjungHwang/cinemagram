@@ -12,11 +12,11 @@ public class LikesService {
     private final LikesRepository likesRepository;
 
     @Transactional
-    public void ImageLikes(int imageId, int sessionId) {
+    public void ImageLikes(Long imageId, Long sessionId) {
         likesRepository.cLikes(imageId, sessionId);
     }
     @Transactional
-    public void ImageUnLikes(int imageId, int sessionId) {
+    public void ImageUnLikes(Long imageId, Long sessionId) {
         likesRepository.cUnLikes(imageId, sessionId);
     }
 }

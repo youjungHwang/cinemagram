@@ -2,9 +2,10 @@ package com.photo.web;
 
 import com.photo.domain.user.User;
 import com.photo.service.AuthService;
-import com.photo.web.dto.auth.SignupReqDto;
+import com.photo.web.dto.auth.SignupRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,8 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public String signup(@Valid SignupReqDto signupReqDto, BindingResult bindingResult) {
-        User user = signupReqDto.toEntity();
+    public String signup(@Valid @NotNull SignupRequestDto signupRequestDto, BindingResult bindingResult) {
+        User user = signupRequestDto.toEntity();
         authService.signup(user);
         return "/auth/signin";
     }

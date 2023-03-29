@@ -3,12 +3,15 @@ package com.photo.domain.follow;
 import com.photo.domain.BaseTimeEntity;
 import com.photo.domain.user.User;
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
+
 import javax.persistence.*;
 
 
 
 @NoArgsConstructor
 @Getter
+@RedisHash("follow")
 @Entity
 @Table(
         uniqueConstraints = {
@@ -21,7 +24,7 @@ import javax.persistence.*;
 public class Follow extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_user_id")

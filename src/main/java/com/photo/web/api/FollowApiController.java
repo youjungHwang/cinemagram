@@ -19,13 +19,13 @@ public class FollowApiController {
     private final FollowService followService;
 
     @PostMapping("/api/follow/{toUserId}")
-    public ResponseEntity<?> follow(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int toUserId) {
+    public ResponseEntity<?> follow(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long toUserId) {
         followService.follow(customUserDetails.getUser().getId(),toUserId);
         return new ResponseEntity<>(new ResDto<>(1,"팔로우 성공", null), HttpStatus.OK);
     }
 
     @DeleteMapping("/api/follow/{toUserId}")
-    public ResponseEntity<?> unFollow(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int toUserId) {
+    public ResponseEntity<?> unFollow(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long toUserId) {
         followService.unFollow(customUserDetails.getUser().getId(), toUserId);
         return new ResponseEntity<>(new ResDto<>(1,"언팔로우 성공", null), HttpStatus.OK);
     }

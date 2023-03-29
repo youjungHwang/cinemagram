@@ -15,10 +15,10 @@ public class CommentDto {
     @NotBlank
     private String content;
     @NotNull
-    private Integer imageId;
+    private Long imageId;
 
     @Builder
-    public CommentDto(String content, Integer imageId) {
+    public CommentDto(String content, Long imageId) {
         this.content = content;
         this.imageId = imageId;
     }

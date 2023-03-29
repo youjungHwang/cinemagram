@@ -6,11 +6,13 @@ import com.photo.domain.image.Image;
 import com.photo.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@RedisHash("likes")
 @Entity
 @Table(
         uniqueConstraints = {
@@ -24,7 +26,7 @@ public class Likes extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @JoinColumn(name = "imageId")
     @ManyToOne(fetch = FetchType.LAZY)

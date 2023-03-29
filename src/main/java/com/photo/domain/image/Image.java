@@ -6,6 +6,8 @@ import com.photo.domain.comment.Comment;
 import com.photo.domain.likes.Likes;
 import com.photo.domain.user.User;
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,11 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@RedisHash("image")
 @Entity
 public class Image extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String caption;
     private String imageUrl;

@@ -42,8 +42,8 @@ public class CommentServiceTest {
     @DisplayName("댓글 등록 - 유저 아이디 존재")
     public void testCommentWithValidUserId() {
         // given
-        int sessionId = 1;
-        CommentDto commentDto = new CommentDto("댓글 내용", 1);
+        Long sessionId = 1L;
+        CommentDto commentDto = new CommentDto("댓글 내용", 1L);
 
         User user = new User();
         user.setId(sessionId);
@@ -73,8 +73,8 @@ public class CommentServiceTest {
     @DisplayName("댓글 등록 - 유저 아이디 미존재")
     public void testCommentWithInvalidUserId() {
         // given
-        int sessionId = 1;
-        CommentDto commentDto = new CommentDto("댓글 내용", 1);
+        Long sessionId = 1L;
+        CommentDto commentDto = new CommentDto("댓글 내용", 1L);
         when(userRepository.findById(sessionId)).thenReturn(Optional.empty());
 
         // when, then
@@ -87,7 +87,7 @@ public class CommentServiceTest {
     @DisplayName("댓글 삭제 테스트")
     public void testDeleteComment() {
         // given
-        int commentId = 1;
+        Long commentId = 1L;
 
         // when
         doNothing().when(commentRepository).deleteById(commentId);
@@ -101,7 +101,7 @@ public class CommentServiceTest {
     @DisplayName("댓글 삭제 예외 처리 테스트")
     public void testDeleteCommentException() {
         // given
-        int commentId = 1;
+        Long commentId = 1L;
 
         // when
         doThrow(new RuntimeException()).when(commentRepository).deleteById(commentId);

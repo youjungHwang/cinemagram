@@ -21,7 +21,7 @@ public class CommentService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Comment comment(CommentDto commentDto, int sessionId){
+    public Comment comment(CommentDto commentDto, Long sessionId){
 
         User userEntity = userRepository.findById(sessionId).orElseThrow(
             new Supplier<IllegalArgumentException>() {
@@ -45,7 +45,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void DeleteComment(int id){
+    public void DeleteComment(Long id){
         try{
             commentRepository.deleteById(id);
         }catch (Exception e) {

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class FollowInfoDto {
-    private Integer id;
+    private Long id;
 
     private String username;
     private String profileImageUrl;
@@ -16,7 +16,7 @@ public class FollowInfoDto {
     private Integer equalUserState;
 
     public FollowInfoDto(Object[] object) {
-        this.id = (int) object[0];
+        this.id = (Long) object[0];
         this.username = (String) object[1];
         this.profileImageUrl = (String) object[2];
         this.followState = Integer.parseInt(String.valueOf(object[3]));

@@ -38,7 +38,7 @@ public class CommentApiControllerTest {
     public void setUpEach() throws ServletException {
         testComment = CommentDto.builder()
                 .content("댓글 남기고 갑니다.")
-                .imageId(1)
+                .imageId(1L)
                 .build();
     }
 
@@ -66,7 +66,7 @@ public class CommentApiControllerTest {
     @DisplayName("유효한 CommentId가 주어졌을 때, CommentService의 DeleteComment가 호출된다.")
     public void givenValidCommentId_whenDeleteComment_thenCommentServiceDeleteCommentIsCalled() {
         // given
-        int id = 1;
+        Long id = 1L;
 
         // when
         commentApiController.deleteComment(id);
@@ -79,7 +79,7 @@ public class CommentApiControllerTest {
     @DisplayName("유효한 CommentId가 주어졌을 때, 성공적인 Response를 반환한다.")
     public void givenValidCommentId_whenDeleteComment_thenReturnSuccessResponseEntity() {
         // given
-        int id = 1;
+        Long id = 1L;
 
         // when
         ResponseEntity<?> result = commentApiController.deleteComment(id);
@@ -98,7 +98,7 @@ public class CommentApiControllerTest {
     @DisplayName("유효하지 않은 CommentId가 주어졌을 때, CommentService의 DeleteComment가 호출되지 않는다.")
     public void givenInvalidCommentId_whenDeleteComment_thenCommentServiceDeleteCommentIsNotCalled() {
         // given
-        int id = -1;
+        Long id = -1L;
 
         // when
         commentApiController.deleteComment(id);
