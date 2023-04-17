@@ -15,17 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
+@RequestMapping("api/v1")
 @RestController
 public class CommentApiController {
 
     private final CommentService commentService;
 
-    @PostMapping("/api/comment")
+    @PostMapping("comments")
     public Comment comment(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails customUserDetails){
         return commentService.comment(commentDto, customUserDetails.getUser().getId());
     }
 
-    @DeleteMapping("/api/comment/{id}")
+    @DeleteMapping("comments/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         commentService.DeleteComment(id);
         return new ResponseEntity<>(new ResDto<>(1, "댓글 삭제 성공", null), HttpStatus.OK);

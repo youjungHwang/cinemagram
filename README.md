@@ -9,7 +9,7 @@
 ### 개발환경
 ***
 - IntelliJ
-- Java 1.8 
+- Java 11
 - Spring Boot 2.6
 - MySQL
 - Gradle
@@ -32,7 +32,7 @@
 ![댓글_좋아요](https://user-images.githubusercontent.com/78125105/219616194-a0006734-bcb6-4e9a-8a3d-c984c91c463d.gif)
 
 
-### 주요 기능
+### 주요 기능, 추가한 기능
 ***
 1. 일반, 소셜 회원가입
 2. 로그인, 로그아웃
@@ -42,21 +42,38 @@
 6. 팔로우, 언팔로우
 7. 좋아요, 좋아요 취소
 8. 댓글, 댓글 삭제
+9. 도커 추가
+10. 대용량 트래픽을 고려하여 redis 추가  
 
-### 요구사항 별 비즈니스 로직
+
+### REST API URL 설계규칙  
+/api/v1 경로는 API의 버전을 나타내며, 이를 통해 클라이언트는 서로 다른 버전의 API를 호출할 수 있습니다.
 ***
-### Comment 댓글
-/api/comment  
-댓글 등록
+#### Comment 댓글
+댓글 생성 API: POST /api/v1/comments  
 
-/api/comment/{id}  
-댓글 삭제
+댓글 삭제 API: DELETE /api/v1/comments/{id}
 
-### Follow 팔로우
-/api/follow/{toUserId}  
-toUserId를 팔로우 한다
+#### Follow 팔로우
+구독 추가 API : POST /api/v1/follow/{to-user-id}
 
-/api/follow/{toUserId}
+구독 취소 API : DELETE /api/v1/follow/{to-user-id}
+
+#### Image 사진
+피드 조회 API : GET /api/v1/feed
+
+좋아요 API : POST /api/v1/image/{image-id}/likes
+
+좋아요 취소 API : DELETE /api/v1/image/{image-id}/likes
+
+#### User 회원
+회원 프로필 사진 변경 API : PUT /api/v1/user/{session-id}/profile-image-url
+
+구독한 유저 정보 조회 API : GET /api/v1/user/{page-user-id}/follow
+
+회원 정보 수정 API : PUT /api/v1/user/{id}
+
+DB 유저 정보 redis 동기화 API : GET /api/v1/redis/save
 
 
 

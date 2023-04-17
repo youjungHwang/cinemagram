@@ -17,26 +17,27 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RequiredArgsConstructor
+@RequestMapping("api/v1")
 @RestController
 public class ImageApiController {
 
     private final ImageService imageService;
     private final LikesService likesService;
 
-    @GetMapping("/api/feed")
+    @GetMapping("feed")
     public ResponseEntity<?> Feed(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   @PageableDefault(size=4, sort="id", direction = Sort.Direction.DESC) Pageable pageable){
         Page<Image> images = imageService.Feed(customUserDetails.getUser().getId(), pageable);
         return new ResponseEntity<>(new ResDto<>(1,"피드 성공", images), HttpStatus.OK);
     }
 
-    @PostMapping("/api/image/{imageId}/likes")
+    @PostMapping("image/{image-id}/likes")
     public ResponseEntity<?> ImageLikes(@PathVariable Long imageId, @AuthenticationPrincipal CustomUserDetails customUserDetails){
         likesService.ImageLikes(imageId, customUserDetails.getUser().getId());
         return new ResponseEntity<>(new ResDto<>(1,"좋아요 성공",null), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/api/image/{imageId}/likes")
+    @DeleteMapping("image/{image-id}/likes")
     public ResponseEntity<?> ImageUnLikes(@PathVariable Long imageId, @AuthenticationPrincipal CustomUserDetails customUserDetails){
         likesService.ImageUnLikes(imageId, customUserDetails.getUser().getId());
         return new ResponseEntity<>(new ResDto<>(1,"좋아요 취소 성공",null), HttpStatus.OK);
